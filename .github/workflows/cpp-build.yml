@@ -1,0 +1,24 @@
+name: C++ Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile all C++ sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/objects
+          for source in cpp_code/*.cpp; do
+            object="build/objects/$(basename "${source%.cpp}.o")"
+            echo "Compiling ${source}"
+            g++ -std=c++17 -Wall -Wextra -pedantic -c "$source" -o "$object"
+          done

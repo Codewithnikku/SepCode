@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <climits>
+#include <array>
 using namespace std;
 
 class MMTCTC_BruteForce {
@@ -103,7 +104,8 @@ public:
             int sz = q.size();
 
             while (sz--) {
-                auto [r, c, e, mask] = q.front();
+                array<int, 4> state = q.front();
+                int r = state[0], c = state[1], e = state[2], mask = state[3];
                 q.pop();
 
                 if (mask == full)
